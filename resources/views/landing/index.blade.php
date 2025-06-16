@@ -113,36 +113,157 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <h2>Layanan Kami</h2>
-            <p class="description-first">Kami menawarkan layanan perawatan dan pembersihan sepatu terbaik untuk menjaga
-                penampilan dan kualitas sepatu Anda. Setiap layanan dirancang untuk memenuhi kebutuhan spesifik Anda dan
-                memastikan kepuasan maksimal.</p>
-                
-            <div class="service-category">
-                <h3>Basic Cleaning</h3>
-                <p>Layanan pembersihan dasar untuk sepatu sehari-hari.</p>
-                <div class="subcategory-container">
-                    <div class="subcategory-item">
-                        <strong>Cuci Biasa</strong>
-                        <p>Pembersihan dasar untuk sepatu sehari-hari</p>
-                        <span class="price">Rp 50.000</span>
-                        <form action="/cart/add" method="POST" style="margin-top:10px;">
-                            @csrf
-                            <input type="hidden" name="id" value="1">
-                            <input type="hidden" name="name" value="Cuci Biasa">
-                            <input type="hidden" name="category" value="Basic Cleaning">
-                            <input type="hidden" name="price" value="50000">
-                            <label for="quantity_1">Jumlah:</label>
-                            <input type="number" id="quantity_1" name="quantity" value="1" min="1" style="width:60px;">
-                            <button type="submit">Tambah ke Keranjang</button>
-                        </form>
-                    </div>
+<section id="services" class="services-section">
+    <div class="container">
+        <h2>Layanan Kami</h2>
+        <p class="description-first">
+            Kami menawarkan layanan perawatan dan pembersihan sepatu terbaik untuk menjaga penampilan dan kualitas sepatu Anda. 
+            Setiap layanan dirancang untuk memenuhi kebutuhan spesifik Anda dan memastikan kepuasan maksimal.
+        </p>
+
+        <!-- Fast Cleaning -->
+        <div class="service-category">
+            <h3>Fast Cleaning</h3>
+            <div class="subcategory-container">
+                <div class="subcategory-item">
+                    <strong>Reguler</strong>
+                    <p>Pembersihan cepat untuk sepatu harian</p>
+                    <span class="price">Rp 30.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="1">
+                        <input type="hidden" name="name" value="Fast Cleaning - Reguler">
+                        <input type="hidden" name="category" value="Fast Cleaning">
+                        <input type="hidden" name="price" value="30000">
+                        <label for="quantity_1">Jumlah:</label>
+                        <input type="number" id="quantity_1" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+                <div class="subcategory-item">
+                    <strong>Outsole</strong>
+                    <p>Pembersihan khusus bagian outsole</p>
+                    <span class="price">Rp 50.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="2">
+                        <input type="hidden" name="name" value="Fast Cleaning - Outsole">
+                        <input type="hidden" name="category" value="Fast Cleaning">
+                        <input type="hidden" name="price" value="50000">
+                        <label for="quantity_2">Jumlah:</label>
+                        <input type="number" id="quantity_2" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>    
+
+        <!-- Deep Cleaning -->
+        <div class="service-category">
+            <h3>Deep Cleaning</h3>
+            <div class="subcategory-container">
+                <div class="subcategory-item">
+                    <strong>Mid</strong>
+                    <p>Pembersihan mendalam tingkat menengah</p>
+                    <span class="price">Rp 60.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="3">
+                        <input type="hidden" name="name" value="Deep Cleaning - Mid">
+                        <input type="hidden" name="category" value="Deep Cleaning">
+                        <input type="hidden" name="price" value="60000">
+                        <label for="quantity_3">Jumlah:</label>
+                        <input type="number" id="quantity_3" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+                <div class="subcategory-item">
+                    <strong>Reguler</strong>
+                    <p>Pembersihan mendalam standar</p>
+                    <span class="price">Rp 80.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="4">
+                        <input type="hidden" name="name" value="Deep Cleaning - Reguler">
+                        <input type="hidden" name="category" value="Deep Cleaning">
+                        <input type="hidden" name="price" value="80000">
+                        <label for="quantity_4">Jumlah:</label>
+                        <input type="number" id="quantity_4" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+                <div class="subcategory-item">
+                    <strong>Hard</strong>
+                    <p>Pembersihan menyeluruh untuk noda membandel</p>
+                    <span class="price">Rp 160.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="5">
+                        <input type="hidden" name="name" value="Deep Cleaning - Hard">
+                        <input type="hidden" name="category" value="Deep Cleaning">
+                        <input type="hidden" name="price" value="160000">
+                        <label for="quantity_5">Jumlah:</label>
+                        <input type="number" id="quantity_5" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repaint -->
+        <div class="service-category">
+            <h3>Repaint (Hanya untuk sepatu berwarna)</h3>
+            <div class="subcategory-container">
+                <div class="subcategory-item">
+                    <strong>Soft</strong>
+                    <p>Pewarnaan ulang ringan untuk memperbaiki tampilan</p>
+                    <span class="price">Rp 200.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="6">
+                        <input type="hidden" name="name" value="Repaint - Soft">
+                        <input type="hidden" name="category" value="Repaint">
+                        <input type="hidden" name="price" value="200000">
+                        <label for="quantity_6">Jumlah:</label>
+                        <input type="number" id="quantity_6" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+                <div class="subcategory-item">
+                    <strong>Medium</strong>
+                    <p>Pewarnaan ulang sedang untuk warna yang mulai pudar</p>
+                    <span class="price">Rp 250.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="7">
+                        <input type="hidden" name="name" value="Repaint - Medium">
+                        <input type="hidden" name="category" value="Repaint">
+                        <input type="hidden" name="price" value="250000">
+                        <label for="quantity_7">Jumlah:</label>
+                        <input type="number" id="quantity_7" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+                <div class="subcategory-item">
+                    <strong>Hard</strong>
+                    <p>Pewarnaan total untuk sepatu sangat kusam</p>
+                    <span class="price">Rp 300.000</span>
+                    <form action="/cart/add" method="POST" style="margin-top:10px;">
+                        @csrf
+                        <input type="hidden" name="id" value="8">
+                        <input type="hidden" name="name" value="Repaint - Hard">
+                        <input type="hidden" name="category" value="Repaint">
+                        <input type="hidden" name="price" value="300000">
+                        <label for="quantity_8">Jumlah:</label>
+                        <input type="number" id="quantity_8" name="quantity" value="1" min="1" style="width:60px;">
+                        <button type="submit">Tambah ke Keranjang</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- Tracking Timeline Section -->
     <section id="tracking" class="tracking-section">
