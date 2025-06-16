@@ -25,30 +25,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($orders as $order)
-                                <tr>
-                                    <td>{{ $order->order_number }}</td>
-                                    <td>{{ $order->customer_name }}</td>
-                                    <td>{{ $order->customer_email }}</td>
-                                    <td>
-                                        <span class="badge 
-                                            @if($order->status == 'processing') bg-warning
-                                            @elseif($order->status == 'shipped') bg-info
-                                            @elseif($order->status == 'delivered') bg-success
-                                            @endif">
-                                            {{ ucfirst($order->status) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('tracking.edit', $order->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <form action="{{ route('tracking.destroy', $order->id) }}" method="POST" style="display: inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin?')">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
+                               @foreach($trackingOrders as $tracking)
+<tr>
+    <td>{{ $tracking->order_number }}</td>
+    <td>{{ $tracking->customer_name }}</td>
+    <td>{{ $tracking->customer_email }}</td>
+    <td>
+        <span class="badge {{ $tracking->statusBadge['class'] }}">
+            {{ $tracking->statusBadge['text'] }}
+        </span>
+    </td>
+    <td>
+        <a href="{{ route('tracking.edit', $tracking) }}" class="btn btn-sm btn-primary">Edit</a>
+        <form action="{{ route('tracking.destroy', $tracking) }}" method="POST" style="display: inline-block;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin?')">Hapus</button>
+        </form>
+    </td>
+</tr>
+@endforeach
                             </tbody>
                         </table>
                     </div>

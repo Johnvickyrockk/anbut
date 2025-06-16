@@ -97,12 +97,12 @@
                                 <span>Review&feedback</span>
                             </a>
                         </li>                    
-                       <li class="sidebar-item">
-    <a href="{{ route('tracking.show', ['trackingOrder' => 1]) }}" class="sidebar-link">
-        <i class="bi bi-grid-fill"></i>
+                     <li class="sidebar-item">
+         <a href="{{ route('tracking.showuser') }}" class="sidebar-link">
+        <i class="bi bi-truck"></i>
         <span>Lacak Pesanan</span>
     </a>
-</li>                  
+</li>               
                         <li class="sidebar-item">
                             <a href="/logout" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>

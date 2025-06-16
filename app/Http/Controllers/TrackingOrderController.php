@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TrackingOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Models\TrackingOrder;
 
 class TrackingOrderController extends Controller
 {
     public function index()
     {
-        $orders = TrackingOrder::latest()->get();
-        return view('tracking.index', compact('orders'));
+        $trackingOrders = TrackingOrder::all();
+        return view('tracking.index', compact('trackingOrders'));
     }
 
     public function create()
@@ -20,53 +21,72 @@ class TrackingOrderController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'order_number' => 'required|unique:tracking_orders',
+        $validated = $request->validate([
+            'order_number' => 'required|unique:tracking_orders,order_number',
             'customer_name' => 'required',
             'customer_email' => 'required|email',
-            'status' => 'required',
-            'message' => 'nullable',
-            'admin_notes' => 'nullable'
+            'status' => 'required|in:processing,shipped,delivered',
+            'message' => 'nullable|string',
+            'admin_notes' => 'nullable|string'
         ]);
 
-        TrackingOrder::create($request->all());
+        TrackingOrder::create($validated);
 
         return redirect()->route('tracking.index')
             ->with('success', 'Order tracking created successfully.');
     }
 
-    public function show(TrackingOrder $trackingOrder)
+   public function show(TrackingOrder $tracking)
+{
+    // Pastikan tracking order ditemukan
+    if (!$tracking) {
+        abort(404, 'Tracking order not found');
+    }
+    
+    // Tentukan view berdasarkan auth status
+    $view = auth()->check() ? 'tracking.show' : 'tracking.public-show';
+    
+    return view($view, compact('tracking'));
+}
+
+    public function edit(TrackingOrder $tracking)
     {
-        return view('tracking.show', compact('trackingOrder'));
+        return view('tracking.edit', compact('tracking'));
     }
 
-    public function edit(TrackingOrder $trackingOrder)
+    public function update(Request $request, TrackingOrder $tracking)
     {
-        return view('tracking.edit', compact('trackingOrder'));
-    }
-
-    public function update(Request $request, TrackingOrder $trackingOrder)
-    {
-        $request->validate([
-            'order_number' => 'required|unique:tracking_orders,order_number,'.$trackingOrder->id,
+        $validated = $request->validate([
+            'order_number' => 'required|unique:tracking_orders,order_number,'.$tracking->id,
             'customer_name' => 'required',
             'customer_email' => 'required|email',
-            'status' => 'required',
-            'message' => 'nullable',
-            'admin_notes' => 'nullable'
+            'status' => 'required|in:processing,shipped,delivered',
+            'message' => 'nullable|string',
+            'admin_notes' => 'nullable|string'
         ]);
 
-        $trackingOrder->update($request->all());
+        $tracking->update($validated);
 
         return redirect()->route('tracking.index')
             ->with('success', 'Order tracking updated successfully');
     }
 
-    public function destroy(TrackingOrder $trackingOrder)
+    public function destroy(TrackingOrder $tracking)
     {
-        $trackingOrder->delete();
+        $tracking->delete();
 
         return redirect()->route('tracking.index')
             ->with('success', 'Order tracking deleted successfully');
     }
+ public function showUser()
+{
+    // Ambil semua tracking order yang terkait dengan user yang login
+    $trackingOrders = TrackingOrder::where('customer_email', auth()->user()->email)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+    return view('tracking.showuser', compact('trackingOrders'));
+}
+
+
 }
