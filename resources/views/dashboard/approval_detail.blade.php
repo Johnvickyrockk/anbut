@@ -1,4 +1,4 @@
-@extends('halamanuser.index')
+@extends('dashboard.index')
 
 @section('content')
 <div class="card">
@@ -31,7 +31,7 @@
                 <p><strong>Pickup & Delivery:</strong> {{ $transaction->pickup_delivery ? 'Ya (+Rp 15.000)' : 'Tidak' }}</p>
                 <p><strong>Total Tagihan:</strong> Rp {{ number_format($transaction->total_amount, 0, ',', '.') }}</p>
                 <p><strong>Status:</strong> 
-                    <span class="badge bg-{{ $transaction->status == 'approved' ? 'success' : ($transaction->status == 'rejected' ? 'danger' : 'warning') }}">
+                    <span class="badge bg-warning">
                         {{ ucfirst($transaction->status) }}
                     </span>
                 </p>
@@ -46,20 +46,23 @@
         @endif
         
         <div class="mt-4">
-            <a href="{{ route('halamanuser.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('approval.transaksi') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
             
-            @if(auth()->user()->can('superadmin'))
-                @if($transaction->status == 'pending')
-                <form action="{{ route('transaction.approve', $transaction->id) }}" method="POST" style="display: inline-block;">
-                    @csrf
-                    <button type="submit" class="btn btn-success">Approve</button>
-                </form>
-                <form action="{{ route('transaction.reject', $transaction->id) }}" method="POST" style="display: inline-block;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Reject</button>
-                </form>
-                @endif
-            @endif
+            <form action="{{ route('transaction.approve', $transaction->id) }}" method="POST" style="display: inline-block;">
+                @csrf
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check"></i> Approve
+                </button>
+            </form>
+            
+            <form action="{{ route('transaction.reject', $transaction->id) }}" method="POST" style="display: inline-block;">
+                @csrf
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Reject
+                </button>
+            </form>
         </div>
     </div>
 </div>

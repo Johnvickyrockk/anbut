@@ -9,38 +9,30 @@ class OrderConfirmationController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::with('user')->where('status', 'pending')->get();
-        return view('dashboard.order_confirmation', compact('transactions'));
+        $transactions = Transaction::with('user')->get();
+        return view('dashboard.order_confirmation_index', compact('transactions'));
     }
 
-    public function approve($id)
+    public function show(Transaction $transaction)
     {
-        $transaction = Transaction::findOrFail($id);
-        $transaction->status = 'approved';
-        $transaction->save();
-        
-        return redirect()->back()->with('success', 'Pesanan telah disetujui!');
+        return view('dashboard.order_confirmation_show', compact('transaction'));
     }
 
-    public function reject($id)
+    public function approve(Transaction $transaction)
     {
-        $transaction = Transaction::findOrFail($id);
-        $transaction->status = 'rejected';
-        $transaction->save();
-        
-        return redirect()->back()->with('success', 'Pesanan telah ditolak!');
+        $transaction->update(['status' => 'approved']);
+        return redirect()->route('order.confirmation.index')->with('success', 'Pesanan berhasil disetujui!');
     }
 
-    public function destroy($id)
+    public function reject(Transaction $transaction)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction->update(['status' => 'rejected']);
+        return redirect()->route('order.confirmation.index')->with('success', 'Pesanan berhasil ditolak!');
+    }
+
+    public function destroy(Transaction $transaction)
+    {
         $transaction->delete();
-        
-        return redirect()->back()->with('success', 'Pesanan telah dihapus!');
+        return redirect()->route('order.confirmation.index')->with('success', 'Transaksi berhasil dihapus!');
     }
-    public function show($id)
-{
-    $transaction = Transaction::with('user')->findOrFail($id);
-    return view('dashboard.order_confirmation_show', compact('transaction'));
-}
 }

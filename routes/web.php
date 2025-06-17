@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\TrackingOrderController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderConfirmationController;
 use App\Http\Controllers\TransactionController;
@@ -18,6 +19,7 @@ Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('r
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
+
 // Public tracking route
 Route::get('lacak-pesanan/{tracking}', [TrackingOrderController::class, 'show'])
     ->name('tracking.show');
@@ -28,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
         return view('dashboard.index');
     })->middleware('can:superadmin');
-    
+        Route::resource('pendapatan', PendapatanController::class);
     // Promotions
     Route::resource('promotions', PromotionController::class);
     
@@ -49,11 +51,19 @@ Route::middleware(['auth'])->group(function () {
     });
     
     // Order Confirmation
-    Route::prefix('order-confirmation')->group(function () {
-        Route::get('/', [OrderConfirmationController::class, 'index'])->name('order.confirmation.index');
-        Route::get('/{transaction}', [OrderConfirmationController::class, 'show'])->name('order.confirmation.show');
-        Route::post('/{transaction}/approve', [OrderConfirmationController::class, 'approve'])->name('order.confirmation.approve');
-        Route::post('/{transaction}/reject', [OrderConfirmationController::class, 'reject'])->name('order.confirmation.reject');
-        Route::delete('/{transaction}', [OrderConfirmationController::class, 'destroy'])->name('order.confirmation.destroy');
-    });
+   // Add these routes inside your auth middleware group
+Route::prefix('order-confirmation')->group(function () {
+    Route::get('/', [OrderConfirmationController::class, 'index'])->name('order.confirmation.index');
+    Route::get('/{transaction}', [OrderConfirmationController::class, 'show'])->name('order.confirmation.show');
+    Route::post('/{transaction}/approve', [OrderConfirmationController::class, 'approve'])->name('order.confirmation.approve');
+    Route::post('/{transaction}/reject', [OrderConfirmationController::class, 'reject'])->name('order.confirmation.reject');
+     Route::post('/{transaction}/reject', [OrderConfirmationController::class, 'reject'])->name('order.confirmation.reject');
+    Route::delete('/{transaction}', [OrderConfirmationController::class, 'destroy'])->name('order.confirmation.destroy');
 });
+
+Route::post('/transaction/{transaction}/approve', [TransactionController::class, 'approve'])->name('transaction.approve');
+Route::post('/transaction/{transaction}/reject', [TransactionController::class, 'reject'])->name('transaction.reject');
+Route::get('/approval/transaksi', [TransactionController::class, 'approvalIndex'])->name('approval.transaksi');
+Route::get('/approval/transaksi/{transaction}', [TransactionController::class, 'approvalShow'])->name('approval.transaksi.detail');
+});
+
