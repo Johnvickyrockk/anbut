@@ -67,13 +67,13 @@ class AuthController extends Controller
     return redirect()->route('halamanuser.index');
 }
 
-    public function logout(Request $request)
-    {
-        Auth::logout();
+    function logout(Request $request)
+{
+    Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Logout berhasil!');
-    }
+    return redirect('/')->with('success', 'Anda telah berhasil logout!');
+}
 }

@@ -1,9 +1,9 @@
-@extends('halamanuser.index')
+@extends('dashboard.index')
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h4>Detail Transaksi #{{ $transaction->id }}</h4>
+        <h4>Detail Pesanan #{{ $transaction->id }}</h4>
     </div>
     <div class="card-body">
         <div class="row">
@@ -46,19 +46,17 @@
         @endif
         
         <div class="mt-4">
-            <a href="{{ route('halamanuser.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('order.confirmation.index') }}" class="btn btn-secondary">Kembali</a>
             
-            @if(auth()->user()->can('superadmin'))
-                @if($transaction->status == 'pending')
-                <form action="{{ route('transaction.approve', $transaction->id) }}" method="POST" style="display: inline-block;">
-                    @csrf
-                    <button type="submit" class="btn btn-success">Approve</button>
-                </form>
-                <form action="{{ route('transaction.reject', $transaction->id) }}" method="POST" style="display: inline-block;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Reject</button>
-                </form>
-                @endif
+            @if($transaction->status == 'pending')
+            <form action="{{ route('order.confirmation.approve', $transaction->id) }}" method="POST" style="display: inline-block;">
+                @csrf
+                <button type="submit" class="btn btn-success">Setujui</button>
+            </form>
+            <form action="{{ route('order.confirmation.reject', $transaction->id) }}" method="POST" style="display: inline-block;">
+                @csrf
+                <button type="submit" class="btn btn-danger">Tolak</button>
+            </form>
             @endif
         </div>
     </div>

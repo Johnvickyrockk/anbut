@@ -91,23 +91,21 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                      <li class="sidebar-item">
+    <a href="{{ route('pendapatan.index') }}" class="sidebar-link">
+        <i class="bi bi-grid-fill"></i>
+        <span>pendapatan</span>
+    </a>
+</li>
                         
                         <li class="sidebar-item">
                             <a href="/promotions" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Promosi</span>
                             </a>
-                        </li>
-                   <li class="sidebar-item">
-    <a href="{{ route('order.confirmation.index') }}" class="sidebar-link">
-        <i class="bi bi-grid-fill"></i>
-        <span>Konfirmasi Pesanan</span>
-    </a>
-</li>
-
-                        
+                        </li>     
                        <li class="sidebar-item">
-    <a href="{{ route('tracking.index') }}" class="sidebar-link">
+  <a href="{{ route('tracking.index') }}" class="sidebar-link">
         <i class="bi bi-grid-fill"></i>
         <span>Tracking pesanan</span>
     </a>
@@ -117,42 +115,23 @@
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Kategori</span>
                             </a>
-                        </li>
-                        
+                        </li> 
+                     
                         <li class="sidebar-item">
-                            <a href="/plus-services" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Plus Service</span>
-                            </a>
-                        </li>
-                        
-                        <li class="sidebar-item">
-                            <a href="/memberships" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Memberships</span>
-                            </a>
-                        </li>
-                        
-                        <li class="sidebar-item">
-                            <a href="/users" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>User</span>
-                            </a>
-                        </li>
-                        
-                        <li class="sidebar-item">
-                            <a href="/store" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Store</span>
-                            </a>
-                        </li>
-                    
-                        <li class="sidebar-item">
-                            <a href="/logout" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Keluar</span>
-                            </a>
-                        </li>
+    <a href="{{ route('approval.transaksi') }}" class="sidebar-link">
+        <i class="bi bi-check-circle-fill"></i> <!-- Changed icon to be more appropriate -->
+        <span>Approve Transaksi</span>
+    </a>
+</li>
+                     <li class="sidebar-item">
+    <a href="#" class="sidebar-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="bi bi-box-arrow-right"></i> <!-- Icon yang lebih sesuai -->
+        <span>Keluar</span>
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+</li>
                     </ul>
                 </div>
             </div>

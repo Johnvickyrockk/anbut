@@ -12,10 +12,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Pelanggan</th>
-                        <th>Email</th>
-                        <th>Layanan</th>
                         <th>Total</th>
                         <th>Status</th>
+                        <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -24,21 +23,19 @@
                     <tr>
                         <td>{{ $transaction->id }}</td>
                         <td>{{ $transaction->user->name }}</td>
-                        <td>{{ $transaction->email }}</td>
-                        <td>{{ str_replace('_', ' ', $transaction->service_type) }}</td>
                         <td>Rp {{ number_format($transaction->total_amount, 0, ',', '.') }}</td>
                         <td>
-                            <span class="badge bg-warning">Pending</span>
+                            <span class="badge bg-{{ $transaction->status == 'approved' ? 'success' : ($transaction->status == 'rejected' ? 'danger' : 'warning') }}">
+                                {{ ucfirst($transaction->status) }}
+                            </span>
                         </td>
+                        <td>{{ $transaction->created_at->format('d/m/Y H:i') }}</td>
                         <td>
                             <a href="{{ route('order.confirmation.show', $transaction->id) }}" class="btn btn-sm btn-info">Detail</a>
-                            <form action="{{ route('order.confirmation.approve', $transaction->id) }}" method="POST" style="display: inline-block;">
+                            <form action="{{ route('order.confirmation.destroy', $transaction->id) }}" method="POST" style="display: inline-block;">
                                 @csrf
-                                <button type="submit" class="btn btn-sm btn-success">Setujui</button>
-                            </form>
-                            <form action="{{ route('order.confirmation.reject', $transaction->id) }}" method="POST" style="display: inline-block;">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus transaksi ini?')">Hapus</button>
                             </form>
                         </td>
                     </tr>

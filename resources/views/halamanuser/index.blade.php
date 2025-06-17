@@ -85,29 +85,39 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                     <li class="sidebar-item">
+                       <li class="sidebar-item">
     <a href="{{ route('halamanuser.create') }}" class="sidebar-link">
-        <i class="bi bi-cart-plus-fill"></i> <!-- Ganti icon agar lebih sesuai -->
-        <span>Buat Transaksi Baru</span>
+        <i class="bi bi-cart-plus-fill"></i>
+        <span>chekout</span>
     </a>
 </li>
+
                         <li class="sidebar-item">
                             <a href="/review" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Review&feedback</span>
                             </a>
                         </li>                    
-                       <li class="sidebar-item">
-    <a href="{{ route('tracking.show', ['trackingOrder' => 1]) }}" class="sidebar-link">
-        <i class="bi bi-grid-fill"></i>
-        <span>Lacak Pesanan</span>
-    </a>
-</li>                  
                         <li class="sidebar-item">
-                            <a href="/logout" class="sidebar-link">
+                         <a href="{{ route('tracking.showuser') }}" class="sidebar-link">
+                        <i class="bi bi-truck"></i>
+                        <span>Lacak Pesanan</span>
+                        </a>
+                        </li>                            
+                        <li class="sidebar-item">
+                         <a href="{{ route('tracking.showuser') }}" class="sidebar-link">
+                        <i class="bi bi-truck"></i>
+                        <span></span>
+                        </a>
+                        </li>                            
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Keluar</span>
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </li>
                     </ul>
                 </div>
