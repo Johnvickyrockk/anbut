@@ -26,9 +26,19 @@ class Transaction extends Model
         'status',
     ];
 
-    // Add this relationship if not already present
+    /**
+     * Relasi ke model User
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relasi ke model Review
+     */
+    public function review()
+    {
+        return $this->hasOne(Review::class);
     }
 }

@@ -93,7 +93,7 @@
 </li>
 
                         <li class="sidebar-item">
-                            <a href="/review" class="sidebar-link">
+                            <a href="{{ route('reviews.index') }}" class="sidebar-link">
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Review&feedback</span>
                             </a>

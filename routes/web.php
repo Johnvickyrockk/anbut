@@ -8,6 +8,7 @@ use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderConfirmationController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReviewController;
 
 // Landing page
 Route::get('/', [PromotionController::class, 'landing']);
@@ -45,10 +46,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [TransactionController::class, 'index'])->name('halamanuser.index');
         Route::get('/create', [TransactionController::class, 'create'])->name('halamanuser.create');
         Route::post('/', [TransactionController::class, 'store'])->name('halamanuser.store');
-        Route::get('/{transaction}', [TransactionController::class, 'show'])->name('halamanuser.show');
-        Route::get('/{transaction}/invoice', [TransactionController::class, 'invoice'])->name('halamanuser.invoice');
-        Route::delete('/{transaction}', [TransactionController::class, 'destroy'])->name('halamanuser.destroy');
+        Route::get('/transactions/{transaction}', [TransactionController::class, 'show'])->name('halamanuser.show');
+        Route::get('/transactions/{transaction}/invoice', [TransactionController::class, 'invoice'])->name('halamanuser.invoice');
+        Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('halamanuser.destroy');
+        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index'); // Transaksi yang bisa direview
+        Route::get('/reviews/list', [ReviewController::class, 'list'])->name('reviews.list'); // Daftar semua review milik user
+        Route::get('/reviews/create/{transaction}', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+        Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+        Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     });
+    
+    // Review
+
     
     // Order Confirmation
    // Add these routes inside your auth middleware group
